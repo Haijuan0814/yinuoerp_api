@@ -2,7 +2,7 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Mock extends MY_Controller {
+class Mock extends CI_Controller {
     
     public $tablename = 'it_project';
     public $tablekey = 'id';
@@ -10,8 +10,12 @@ class Mock extends MY_Controller {
     public function __construct() {
         parent::__construct();
     }
-    
+
     public function index() {
+        print('api works')
+    }
+    
+    public function _index() {
         $page = $this->input->get("page") ? $this->input->get("page") : 0;    
         if($this->input->get('title')){
             $this->db->where('(`title` like "%'.$this->input->get('title').'%")');

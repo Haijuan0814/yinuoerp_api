@@ -73,8 +73,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $active_group = 'default';
 $query_builder = TRUE;
 
+/*
 $db['default']['hostname'] = 'localhost';
 $db['default']['username'] = 'root';
 $db['default']['password'] = 'hai15861342189';
+$db['default']['database'] = 'yinuo_erp';
+$db['default']['dbdriver'] = 'mysqli';
+
+*/
+
+$db['default']['hostname'] = 'database-yinuo.cloquo2i4nww.us-east-1.rds.amazonaws.com';
+$db['default']['username'] = 'admin';
+$db['default']['password'] = 'Yinuo_12356';
 $db['default']['database'] = 'yinuo_erp';
 $db['default']['dbdriver'] = 'mysqli';

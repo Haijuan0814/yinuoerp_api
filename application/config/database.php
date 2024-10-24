@@ -84,6 +84,10 @@ $db['default']['dbdriver'] = 'mysqli';
 
 $db['default']['hostname'] = 'database-yinuo.cloquo2i4nww.us-east-1.rds.amazonaws.com';
 $db['default']['username'] = 'admin';
+$db['default']['port'] = '3306';
 $db['default']['password'] = 'Yinuo_12356';
-$db['default']['database'] = 'yinuo_erp';
+$db['default']['database'] = 'yinuoerp';
 $db['default']['dbdriver'] = 'mysqli';
+
+
+

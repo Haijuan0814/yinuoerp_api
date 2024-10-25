@@ -107,7 +107,7 @@ class Weixinapi {
 
     public function replace_department($media_id) {
         $url = "https://qyapi.weixin.qq.com/cgi-bin/batch/replaceparty?access_token=" . $this->access_token;
-        $data = array("media_id" => $media_id, "callback" => array("url" => "http://api.yilin.me/index.php/base/crontab/sync_weixin_user"));
+        $data = array("media_id" => $media_id, "callback" => array("url" => "https://api.yilin.me/index.php/base/crontab/sync_weixin_user"));
         $result = $this->request_post($url, json_encode($data));
         return $result;
     }

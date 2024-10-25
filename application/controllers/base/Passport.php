@@ -37,16 +37,13 @@ class Passport extends CI_Controller {
     Desc：登录
     */
     public function login() {
-
-        //$this->cache->memcached->save("test", '111', 60);
-        //echo $this->cache->memcached->get("test");
-        //exit();
         $params=file_get_contents("php://input");
         $params = json_decode($params,true);
+        var_dump($params);
+        var_dump($_GET());
+        var_dump($_POST());
         $name = $params["username"];
         $password = $params["password"];
-        //$name = $this->input->post('username');
-        //$password = $this->input->post('password');
         //信息不完整
         if (!$name || !$password) {
             json_fail('请输入账户信息');
@@ -157,7 +154,6 @@ class Passport extends CI_Controller {
             json_success('操作成功！验证码已发送');
         }
     }
-
 
     public function outLogin(){
 

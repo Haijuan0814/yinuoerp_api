@@ -19,18 +19,9 @@ class MY_Controller extends CI_Controller {
     }
 
     public function check() {
-        /*$result = $this->db->select('id,name,department_id,department_name,avatar,roles,token')->where('id', 1001)->get('user');
-        $user=$result ? $result->row() : array();
-        echo $this->db->last_query();
-       
-        if (!$user) json_fail('token error');
-        $user->roles=explode(',',$user->roles);
-        $this->user = $user;*/
-
         if (!isset($_SERVER['HTTP_TOKEN'])) json_fail('token undefined');
         $user = $this->db->select('id,name,department_id,department_name,avatar,roles,token')->where('token', $_SERVER['HTTP_TOKEN'])->get('user')->row();
         if (!$user) json_fail('token error');
         $this->user = $user;
     }
-
 }

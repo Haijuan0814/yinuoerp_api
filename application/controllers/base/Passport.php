@@ -39,8 +39,8 @@ class Passport extends CI_Controller {
     public function login() {
         $params=file_get_contents("php://input");
         $params = json_decode($params,true);
-        var_dump($params);
-        exit();
+        //var_dump($params);
+        //exit();
         $name = $params["username"];
         $password = $params["password"];
         //信息不完整

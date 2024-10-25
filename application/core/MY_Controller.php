@@ -1,11 +1,16 @@
 <?php
 
-header('Access-Control-Allow-Origin:*');
-header('Access-Control-Allow-Methods:POST,GET,PUT,DELETE,PATCH');
+//header('Access-Control-Allow-Origin:*');
+header('Access-Control-Allow-Origin: https://aws.yinuoerp.com');
+header('Access-Control-Allow-Methods:POST,GET,PUT,DELETE,PATCH,OPTIONS');
 header('Access-Control-Max-Age:9999999');
 header('Access-Control-Allow-Credentials:true');
 header('Access-Control-Allow-Headers:authorization,content-type,token');
 // header('Content-Type', 'application/json;charset=utf-8');
+
+
+
+
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 

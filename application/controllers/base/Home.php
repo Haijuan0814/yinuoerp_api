@@ -21,30 +21,6 @@ class Home extends MY_Controller {
         json_success($ret);
     }
     
-    /*天气*/
-    public function weather(){
-        $city='扬州市'; //接收城市名
-        $url="http://wthrcdn.etouch.cn/weather_mini?city=".$city; 
-
-
-        json_success();
-        exit();
-        $str = file_get_contents($url);  //调用接口获得天气数据
-        var_dump($str);
-        exit();
-        $result= gzdecode($str);   //这一步很重要，解压
-        $arr=json_decode($result,true);
-        $ret=array();
-        if($arr){
-            $ret=array(
-                'city'=>$arr['data']['city'],
-                'ganmao'=>$arr['data']['city'],
-                'today'=>$arr['data']['forecast'][0]
-            );
-        }
-        json_success($ret);
-    }
-    
     
     /*团队成员*/
     public function user() {
@@ -52,7 +28,6 @@ class Home extends MY_Controller {
         $rows = $this->db->get('user')->result();
         foreach($rows as $row){
             $row->birthday_m=date('m',$row->birthday);
-            //$row->birthday=date('m月d日',$row->birthday);
         }
         json_success($rows);
     }
@@ -82,7 +57,7 @@ class Home extends MY_Controller {
         $this->db->select('id,title,content')
                 ->where('is_delete',0)->where('is_send',1)
                 ->where('start_date <=',strtotime(date('Ymd')))->where('end_date >=',strtotime(date('Ymd')))
-                ->order_by('id desc');//->where('area !=','factory')
+                ->order_by('id desc');
         $rows = $this->db->get('oa_notice')->result();
         json_success($rows);
     }
@@ -106,7 +81,6 @@ class Home extends MY_Controller {
         $projects_num=$this->db->where("(start_time >=".strtotime(date('Y-m-01'))." and start_time<".strtotime(date('Y-m-01',strtotime('+1 month'))).")")->count_all_results('it_project');
         
         $where="((FIND_IN_SET('{$this->user->id}',`deal_uids`) or FIND_IN_SET('{$this->user->id}',`related_uids`) ) and status>-1)";
-        //$where="(FIND_IN_SET('{$this->user->id}',`deal_uids`) and status>-1)";
         $demand_num=$this->db->where($where)->where('status <',3)->count_all_results('it_demand');
         $code_num=$this->db->where($where)->where('status <',3)->count_all_results('it_coding');
         $bug_num=$this->db->where($where)->where('status <',2)->count_all_results('it_bug');
@@ -130,10 +104,10 @@ class Home extends MY_Controller {
         $start = strtotime($year.'-'.$month.'-01');
         $end = strtotime($year.'-'.$month.'-'.$days);
         
-        $dakadata = $this->getWeixinDaka($year,$month,$days);
+        //$dakadata = $this->getWeixinDaka($year,$month,$days);
          
         $list=array();
-        if($dakadata){
+        /*if($dakadata){
             foreach($dakadata as $k=>$item){
                 $day=date('n-j',$item['checkin_time']);
                 if(!isset($list[$day])){
@@ -141,9 +115,7 @@ class Home extends MY_Controller {
                 }
                 array_push($list[$day],$item);
             }
-        }
-        
-        //var_dump($list);
+        }*/
         
         //数据格式优化
         $_list=array();
@@ -173,7 +145,7 @@ class Home extends MY_Controller {
                     array_push($_list[$key],array(
                         'type'=>($item1->status=="success"?"success":"warning"),
                         'typecolor'=>'#91d5ff',
-                        'content'=>element($item1->thing,config_item('thing')) . ($_length?(floatval($_length).'时'):'')
+                        'content'=>element($item1->thing,config_item('thing')) . ($_length?(floatval($_length).' Hours'):'')
                         ));
                 }
             }
@@ -189,7 +161,7 @@ class Home extends MY_Controller {
                         array_push($_list[$key],array(
                             'type'=>($item2->status=="success"?"success":"warning"),
                             'typecolor'=>'#91d5ff',
-                            'content'=>'加班'. ($_length?(floatval($_length).'时'):'')));
+                            'content'=>'Overtime'. ($_length?(floatval($_length).' Hours'):'')));
                     }
                 }
             
@@ -238,7 +210,7 @@ class Home extends MY_Controller {
                             array_push($_list[$key],array(
                                 'type'=>'error',
                                 'typecolor'=>'#ffccc7',
-                                'content'=>'上班缺卡'));
+                                'content'=>'Punch Error'));
                         }
                     }
                 }
